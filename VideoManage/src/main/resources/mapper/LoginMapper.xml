@@ -29,11 +29,19 @@
 				birthday=#{birthday},
 			</if>
 			<if test="address!=null">
-				address=#{address}
+				address=#{address},
+			</if>
+			<if test="imgurl!=null">
+				imgurl=#{imgurl}
 			</if>
 		</trim>
 		where id=#{id}	
-	
 	</update>
 
+	<insert id="insertUser">
+		insert into user values(null,#{0},null,#{1},null,null,null,null,null,null)
+	</insert>
+	<insert id="applyUser" parameterType="user">
+		insert into user values(null,#{accounts},#{phone},null,#{nickname},null,null,null,null,null)
+	</insert>
 </mapper>

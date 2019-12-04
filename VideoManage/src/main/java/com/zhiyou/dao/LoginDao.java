@@ -14,5 +14,9 @@ public interface LoginDao {
 
 	//修改个人资料
 	void saveData(User user);
+	//注册账号及密码
+	 int insertUser( String email, String password);
+
+	void applyUser(User user);
 
 }

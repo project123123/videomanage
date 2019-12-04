@@ -34,10 +34,11 @@
 
 		<div id="userBlock" style="float: right">
 			<a>退出</a>
+		<a id="reg_open">注册</a>
 			
 				<c:choose>
 					<c:when test="${user==null}"> <a id="login_open" >登入</a></c:when>
-					<c:otherwise><a href="personCenter">${user.getAccounts()}</a> </c:otherwise>
+					<c:otherwise><a href="updateDataCenter?service=0">${user.getAccounts()}</a> </c:otherwise>
 				</c:choose>
 				
 			
@@ -117,7 +118,7 @@
 				</table>
 				<!--马上试听-->
 				<a onclick="pyRegisterCvt()" target="_blank"
-					href="http://wpa.qq.com/msgrd?v=3&amp;uin=2580094677&amp;site=qq&amp;menu=yes">
+					href="videoCourse">
 					<div class="audition">高级课程</div>
 				</a>
 			</div>
@@ -132,7 +133,7 @@
 				<b>这个世界上可以选择的很多，可以改变命运的选择很少<br>你现在准备好向梦想出发了吗？
 				</b>
 			</p>
-			<form id="iform" action="http://localhost:8080/090/plus/dmail.php"
+			<form id="iform" action="applyUser"
 				enctype="multipart/form-data" method="post">
 				<div class="form_line1"></div>
 				<div class="form_line2"></div>
@@ -142,15 +143,15 @@
 						value="2" type="hidden"> <input name="ip" value=""
 						type="hidden"> <input name="time" value="" type="hidden">
 					<div>
-						<label for="name">姓名：</label><input name="name" id="name"
+						<label for="name">姓名：</label><input name="nickname" id="name"
 							class="form-control" type="text">
 					</div>
 					<div>
-						<label for="tel">手机号：</label><input name="tel" id="tel"
+						<label for="tel">手机号：</label><input name="phone" id="tel"
 							class="form-control" type="text">
 					</div>
 					<div>
-						<label for="qq">QQ：</label><input name="qq" id="qq"
+						<label for="qq">QQ：</label><input name="accounts" id="qq"
 							class="form-control" type="text">
 					</div>
 				</div>

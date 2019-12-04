@@ -31,7 +31,7 @@
 	<menu>
 		<div class="container clearfix">
 			<ul class="clearfix f_left">
-				<li><a href="personCenter">首页</a></li>
+				<li><a href="updateDataCenter?service=0">首页</a></li>
 				
 				<li class="menu_active"><a ">个人中心</a></li>
 			</ul>
@@ -51,16 +51,16 @@
             <h2>我的资料</h2>
             <div id="profile_tab">
                 <ul class="profile_tab_header f_left clearfix">
-                    <li><a href="updateData">更改资料</a></li>
-                    <li class="profile_tab_line">|</li>
-                    <li><a href="updateHeadPortrait">更改头像</a></li>
-                    <li class="profile_tab_line">|</li>
-                    <li><a href="updatePassWord">密码安全</a></li>
+	                <li><a href="updateDataCenter?service=1">更改资料</a></li>
+					<li class="profile_tab_line">|</li>
+					<li><a href="updateDataCenter?service=2">更改头像</a></li>
+					<li class="profile_tab_line">|</li>
+					<li><a href="updateDataCenter?service=3">密码安全</a></li>
                 </ul>
                 <div class="proflle_tab_body">
                     <div class="proflle_tab_workplace clearfix">
                         <div class="profile_avatar_area">
-		                     <img id="avatar" width="200px;" src="http://localhost:8080/Voids/" alt="">
+		                     <img id="avatar" width="200px;" src="${user.imgurl}" alt="">
                         </div>
                         <div class="profile_ifo_area">
                             <form id="passWordForm" action="" method="post">
@@ -109,15 +109,22 @@
 
 var regIsCommitPswOld=false;
 $("#oldMsg1").blur(function(){
-	var  password = $("#password").val();
 	var oldpassword = $("#oldMsg1").val();
-	if(password != oldpassword){
+	if(oldpassword!=""&&oldpassword!=null){
+		$.post("verifyPassWord",{password:oldpassword},function(data){
+			if(data!=""){
+				regIsCommitPswOld=true;
+				$("#oldMsg").html("<span style='color:red '>✔</span>");
+			}else{
+				regIsCommitPswOld=false;
+				$("#oldMsg").html("<span style='color:red '>原密码错误</span>");
+			}
+		})
+	}else{
 		regIsCommitPswOld=false;
 		$("#oldMsg").html("<span style='color:red '>原密码错误</span>");
-	}else{
-		regIsCommitPswOld=true;
-		$("#oldMsg").html("<span style='color:red '>✔</span>");
 	}
+	
 })
 
 function commitPassWord(){

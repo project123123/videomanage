@@ -43,7 +43,12 @@
 
 
 		<div id="userBlock" style="float: right">
-			<a>退出</a> <a>1@qq.com</a>
+			<a>退出</a> 
+			<c:choose>
+				<c:when test="${user==null}"> <a id="login_open" >登入</a></c:when>
+				<c:otherwise><a href="updateDataCenter?service=0">${user.getAccounts()}</a> </c:otherwise>
+			</c:choose>
+			
 		</div>
 
 

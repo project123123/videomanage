@@ -35,7 +35,7 @@
 			<a>退出</a> 
 			<c:choose>
 				<c:when test="${user==null}"> <a id="login_open" >登入</a></c:when>
-				<c:otherwise><a href="personCenter">${user.getAccounts()}</a> </c:otherwise>
+				<c:otherwise><a href="updateDataCenter?service=0">${user.getAccounts()}</a> </c:otherwise>
 			</c:choose>
 			
 		</div>

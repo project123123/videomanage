@@ -39,7 +39,7 @@
 	<menu>
 		<div class="container clearfix">
 			<ul class="clearfix f_left">
-				<li><a href="personCenter">首页</a></li>
+				<li><a href="updateDataCenter?service=0">首页</a></li>
 
 				<li class="menu_active"><a>个人中心</a></li>
 			</ul>
@@ -57,17 +57,18 @@
 		<h2>我的资料</h2>
 		<div id="profile_tab">
 			<ul class="profile_tab_header f_left clearfix">
-				<li><a href="updateData">更改资料</a></li>
+				<li><a href="updateDataCenter?service=1">更改资料</a></li>
 				<li class="profile_tab_line">|</li>
-				<li><a href="updateHeadPortrait">更改头像</a></li>
+				<li><a href="updateDataCenter?service=2">更改头像</a></li>
 				<li class="profile_tab_line">|</li>
-				<li><a href="updatePassWord">密码安全</a></li>
+				<li><a href="updateDataCenter?service=3">密码安全</a></li>
+				
 			</ul>
 			<div class="proflle_tab_body">
 
 				<div class="proflle_tab_workplace clearfix">
 					<div class="profile_avatar_area">
-						<img id="avatar" width="200px;" src="http://localhost:8080/VideoManage/speakerimg/3.jpg"
+						<img id="avatar" width="200px;" src="${user.imgurl}"
 							alt="">
 						<p>欢迎回来！</p>
 					</div>

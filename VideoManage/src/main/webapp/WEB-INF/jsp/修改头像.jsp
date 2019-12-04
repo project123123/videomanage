@@ -34,19 +34,12 @@
 	<menu>
 		<div class="container clearfix">
 			<ul class="clearfix f_left">
-				<li><a href="personCenter">首页</a></li>
-				
+				<li><a href="updateDataCenter?service=0">首页</a></li>
 				<li class="menu_active"><a>个人中心</a></li>
 			</ul>
-			
 			<div id="user_bar">
 				<a>
-						
-						<img id="avatar" src="z/avatar_lg.png" alt="" >
-						
-						
-					
-
+					<img id="avatar" src="z/avatar_lg.png" alt="" >
 				</a>
 				<a href="show">退出</a>
 			</div>
@@ -59,31 +52,24 @@
             <h2>我的资料</h2>
             <div id="profile_tab">
                 <ul class="profile_tab_header f_left clearfix">
-                     <ul class="profile_tab_header f_left clearfix">
-                    <li><a href="updateData">更改资料</a></li>
-                    <li class="profile_tab_line">|</li>
-                    <li><a href="updateHeadPortrait">更改头像</a></li>
-                    <li class="profile_tab_line">|</li>
-                    <li><a href="updatePassWord">密码安全</a></li>
-                </ul>
+                    <li><a href="updateDataCenter?service=1">更改资料</a></li>
+					<li class="profile_tab_line">|</li>
+					<li><a href="updateDataCenter?service=2">更改头像</a></li>
+					<li class="profile_tab_line">|</li>
+					<li><a href="updateDataCenter?service=3">密码安全</a></li>
                 </ul>
                 <div class="proflle_tab_body">
                     <div class="proflle_tab_workplace clearfix">
                         <div class="profile_avatar_area">
-                            	
-                                 <img src="z/avatar_lg.png">
-                            	
-                            	
-                            
-                            
-                            
+
+                                <img src="${user.imgurl}">
                             <p style="text-align: center;">当前头像</p>
                         </div>
                         <div class="profile_ifo_area">
-                            <form id="upload_form" action="#">
+                            <form id="upload_form" action="upload" method="post" enctype="multipart/form-data"> 
                                 <!-- hidden crop params -->
-                              
-
+                                
+                                <input type="hidden" name="id" value="${user.id}">
                                 <p>第一步：请选择图像文件</p>
                                 <div><input name="image_file" id="image_file" onchange="fileSelectHandler()" type="file"></div>
 
@@ -91,8 +77,6 @@
 
                                 <div class="step2">
                                     <p>第二步：请确定,然后按上传</p>
-                            
-
                                     <input value="上传" type="submit">
                                 </div>
                             </form>

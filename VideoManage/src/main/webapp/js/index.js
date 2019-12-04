@@ -106,25 +106,33 @@ function GetUrlParam(paraName) {
 //==========================Java02班升级JS===============================
 
 $("#regEmail").blur(function(){
-
-    
+	var mailbox = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
     //不为空再校验
     var emailVal=$("#regEmail").val();
     //alert(emailVal);
     // js 判断不相等  不能使用   !""==xxxx
-    if(null != emailVal && ""!=emailVal){
-        var params={"email":emailVal};
-       // alert(params);
-        $.post("front/user/validateEmail.action",params,function(data){
-            if(data=="success"){
-               regIsCommitEmail=true;
-               $("#emailMsg").text("该邮箱可用").css("color","green");
-            }else{
-               regIsCommitEmail=false;
-               $("#emailMsg").text("该邮箱已注册，请直接登录").css("color","red");
-            }
-        });
+
+    if(!mailbox.test(emailVal)){
+    	regIsCommitEmail=false;
+    	 $("#emailMsg").text("该邮箱格式不正确").css("color","red");
+    }else{
+    	
+    	if(null != emailVal && ""!=emailVal){
+            var params={"email":emailVal};
+           // alert(params);
+            $.post("validateEmail",params,function(data){
+                if(data=="success"){
+                   regIsCommitEmail=true;
+                   $("#emailMsg").text("该邮箱可用").css("color","green");
+                }else{
+                   regIsCommitEmail=false;
+                   $("#emailMsg").text("该邮箱已注册，请直接登录").css("color","red");
+                }
+            });
+        }
+    	
     }
+    
 
 });
 
@@ -175,8 +183,8 @@ $("#regPsw").blur(function(){
 var regIsCommitEmail=false;
 var regIsCommitPsw=false;
 var verifyCode;
+
 function commitRegForm(){
-     
      var code =$("input[name='yzm']").val();
      //alert(code);
      //alert(regIsCommitEmail+","+regIsCommitPsw);
@@ -184,15 +192,15 @@ function commitRegForm(){
               //用js提交表单
              // $("#regForm").commit();
              
-             $.ajax({
+            $.ajax({
               
-                url:"front/user/insertUser.action",
+                url:"insertUser",
                 data:$("#regForm").serialize(),
                 type:"POST",
                 success:function(data){
                    if(data=='success'){
-                     /* //注册框消失
-                      $("#reg").addClass("hidden");
+                      //注册框消失
+                      /*$("#reg").addClass("hidden");
                       
                       $("#account").text($("#regEmail").val());
                       //将注册的user信息展示
@@ -228,11 +236,11 @@ function commitLogin(){
        // alert(params);
         // post要小写
         $.post("loginUser",params,function(data){
-         alert(data);
                  if(data=='success'){
                 	// alert(email)
                      document.location.reload();
-                      
+                   }else{
+                	   alert(data);
                    }
         });
         
