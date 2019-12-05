@@ -68,19 +68,30 @@
 				<table cellspacing="10">
 					<tbody>
 						<tr>
-							<td colspan="2"><a href="webShow"> <img src="z/html5.jpg" alt=""
-									class="image scale" draggable="false">
-									<div class="headline">
-										<span>Web前端教程</span> <img src="z/arrow.png" alt="">
-									</div>
-							</a></td>
+							<td colspan="2">
+								<c:forEach items="${list}" var="list">
+									<c:if test="${list.subject_id==1 }">
+										<a href="show?service=${list.subject_id}"> <img src="z/html5.jpg" alt=""
+										class="image scale" draggable="false">
+										<div class="headline">
+											<span>${list.subject_name}</span> <img src="z/arrow.png" alt="">
+										</div>
+										</a>
+									</c:if>
+									</c:forEach>
+								</td>
+								
 							<td>
-								<!--上线时修改id--> <a> <img src="z/ui.jpg" alt=""
-									class="image scale" draggable="false">
-									<div class="headline">
-										<span>UI设计教程</span> <img src="z/arrow.png" alt="">
-									</div>
-							</a>
+								<c:forEach items="${list}" var="list">
+									<c:if test="${list.subject_id==6 }">
+									<!--上线时修改id--> <a href="show?service=${list.subject_id}"> <img src="z/ui.jpg" alt=""
+										class="image scale" draggable="false">
+										<div class="headline">
+											<span>${list.subject_name}</span> <img src="z/arrow.png" alt="">
+										</div>
+										</a>
+									</c:if>
+								</c:forEach>
 							</td>
 							<td rowspan="2" class="one_three"><a class="opacity5"> <img
 									src="z/java.jpg" alt="" class="image" draggable="false">
@@ -96,20 +107,38 @@
 										<span>大数据教程</span> <img src="z/arrow.png" alt="">
 									</div>
 							</a></td>
-							<td colspan="2"><a> <img src="z/python.jpg" alt=""
+							<td colspan="2">
+								<c:forEach items="${list}" var="list">
+									<c:if test="${list.subject_id==10 }">
+									<a href="show?service=${list.subject_id}"> <img src="z/python.jpg" alt=""
 									class="image scale" draggable="false">
 									<div class="headline">
-										<span>Python教程</span> <img src="z/arrow.png" alt="">
+										<span>${list.subject_name}</span> <img src="z/arrow.png" alt="">
 									</div>
-							</a></td>
+									</a>
+									</c:if>
+								</c:forEach>
+							</td>
+						
+						
 						</tr>
 						<tr>
-							<td colspan="2"><a> <img src="z/php.jpg" alt=""
+							<td colspan="2">
+							
+							<c:forEach items="${list}" var="list">
+									<c:if test="${list.subject_id==11 }">
+									<a href="show?service=${list.subject_id}"> <img src="z/php.jpg" alt=""
 									class="image scale" draggable="false">
 									<div class="headline">
-										<span>PHP教程</span> <img src="z/arrow.png" alt="">
+										<span>${list.subject_name}</span> <img src="z/arrow.png" alt="">
 									</div>
-							</a></td>
+										</a>
+									</c:if>
+								</c:forEach>
+							
+							
+							
+							</td>
 							<td colspan="2" class="three_two"><img src="z/qidai.jpg"
 								alt="" class="image" draggable="false">
 								<div class="headline">更多课程，敬请期待...</div></td>

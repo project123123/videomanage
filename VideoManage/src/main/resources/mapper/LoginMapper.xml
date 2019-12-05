@@ -5,14 +5,62 @@
 
 
 <mapper namespace="com.zhiyou.dao.LoginDao">
-
-	<select id="loginUser" resultType="user">
+	
+	<resultMap type="course" id="coursesMap">
+			<id column="id" property="id" />
+			<result column="course_title" property="course_title" />
+			<result column="course_desc" property="course_desc"/>
+			<result column="subject_id" property="subject_id"/>
+	
+	<collection property="videos" ofType="com.zhiyou.model.Video">
+  			<id column="video_id" property="video_id" />
+			<result column="title" property="title" />
+			<result column="detail" property="detail"/>
+			<result column="time" property="time"/>
+			<result column="speaker_id" property="speaker_id"/>
+			<result column="course_id" property="course_id"/>
+			<result column="video_url" property="video_url"/>
+			<result column="image_url" property="image_url"/>
+			<result column="play_num" property="play_num"/>
+  	</collection>
+	</resultMap>
+	
+	
+	<resultMap type="speaker" id="speakerMap">
+			<id column="id" property="id" />
+			<result column="speaker_name" property="speaker_name" />
+			<result column="speaker_desc" property="speaker_desc"/>
+			<result column="speaker_job" property="speaker_job"/>
+			<result column="pic_url" property="pic_url"/>
+	
+	<collection property="videos" ofType="com.zhiyou.model.Video">
+  			<id column="video_id" property="video_id" />
+			<result column="title" property="title" />
+			<result column="detail" property="detail"/>
+			<result column="time" property="time"/>
+			<result column="speaker_id" property="speaker_id"/>
+			<result column="course_id" property="course_id"/>
+			<result column="video_url" property="video_url"/>
+			<result column="image_url" property="image_url"/>
+			<result column="play_num" property="play_num"/>
+  	</collection>
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	<select id="selectSubject" resultType="subject" >
+		SELECT * FROM subject
+	</select>
+	<select id="loginUser" resultType="user" >
 		select * from user where accounts = #{email}
 	</select>
-	<select id="webShow" resultType="video">
-		select * from video
+	<select id="webShow"  resultMap="coursesMap">
+		SELECT * FROM course c  LEFT JOIN video v  ON c.`id`=v.`course_id`AND c.`subject_id`=#{service}	
+		
 	</select>
-	
 	<update id="saveData" parameterType="user">
 		update user 
 		<trim prefix="set" suffixOverrides=",">
@@ -44,4 +92,9 @@
 	<insert id="applyUser" parameterType="user">
 		insert into user values(null,#{accounts},#{phone},null,#{nickname},null,null,null,null,null)
 	</insert>
+	<!-- 视频播放 -->
+	<select id="videoCourse" resultMap="speakerMap">
+		SELECT * FROM speaker S  LEFT JOIN video v  ON S.`id`=v.`speaker_id` AND s.`id`= #{speaker_id}
+	</select>
+	
 </mapper>

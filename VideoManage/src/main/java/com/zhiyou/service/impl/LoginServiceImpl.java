@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhiyou.dao.LoginDao;
 import com.zhiyou.model.Admin;
+import com.zhiyou.model.Course;
+import com.zhiyou.model.Speaker;
+import com.zhiyou.model.Subject;
 import com.zhiyou.model.User;
 import com.zhiyou.model.Video;
 import com.zhiyou.service.LoginService;
@@ -24,6 +27,13 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	LoginDao loginDao;
+	
+	public List<Subject> selectSubject(){
+		
+		
+		return loginDao.selectSubject();
+	}
+	
 
 	public User loginUser(String email, String password, HttpServletResponse response) {
 		response.setCharacterEncoding("utf-8");
@@ -56,8 +66,8 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	// Web前端入门小项目
-	public List<Video> webShow() {
-		return loginDao.webShow();
+	public List<Course> webShow(Integer service) {
+		return loginDao.webShow(service);
 	}
 
 	// 修改个人资料
@@ -106,6 +116,12 @@ public class LoginServiceImpl implements LoginService {
 
 	public void applyUser(User user) {
 		loginDao.applyUser(user);
+	}
+
+	//视频播放
+	public List<Speaker> videoCourse(Integer speaker_id) {
+		
+		return loginDao.videoCourse(speaker_id);
 	}
 
 }

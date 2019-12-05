@@ -4,5 +4,8 @@
 	 <typeAliases>
 		<typeAlias type="com.zhiyou.model.User" alias="user"/>
 		<typeAlias type="com.zhiyou.model.Video" alias="video"/>
+		<typeAlias type="com.zhiyou.model.Subject" alias="subject"/>
+		<typeAlias type="com.zhiyou.model.Course" alias="course"/>
+		<typeAlias type="com.zhiyou.model.Speaker" alias="speaker"/>
 	</typeAliases>
 </configuration>

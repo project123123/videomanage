@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.zhiyou.model.Course;
+import com.zhiyou.model.Speaker;
+import com.zhiyou.model.Subject;
 import com.zhiyou.model.User;
 import com.zhiyou.model.Video;
 import com.zhiyou.service.LoginService;
@@ -24,29 +27,31 @@ public class LoginController {
 	LoginService loginService;
 
 	@RequestMapping("/show")
-	public String show(HttpServletRequest request, HttpServletResponse response) {
+	public String show(Integer service, HttpServletRequest request, HttpServletResponse response) {
 
-		return "forward:在线公开课-智游教育_java_大数据_HTML5_python_UI_PHP视频教程.jsp";
+		List<Subject> list = loginService.selectSubject();
+		request.setAttribute("list", list);
+		if (service != null) {
+
+			List<Course> webShow = loginService.webShow(service);
+
+			request.setAttribute("list1", webShow);
+			request.setAttribute("service", service);
+			return "课程展示";
+		} else {
+			return "forward:在线公开课-智游教育_java_大数据_HTML5_python_UI_PHP视频教程.jsp";
+		}
+
 	}
 
 	@RequestMapping("loginUser")
 	@ResponseBody
 	public void loginUser(String email, String password, HttpServletRequest request, HttpServletResponse response) {
-		
+
 		User user = loginService.loginUser(email, password, response);
 		if (user != null) {
 			request.getSession().setAttribute("user", user);
 		}
-	}
-
-	// Web前端入门小项目
-	@RequestMapping("webShow")
-	public String webShow(HttpServletRequest request, HttpServletResponse response) {
-
-		List<Video> list = loginService.webShow();
-		request.setAttribute("list", list);
-
-		return "课程展示";
 	}
 
 	// 回显个人中心和修改密码
@@ -56,14 +61,15 @@ public class LoginController {
 		request.setAttribute("user", loginService.personCenter(user.getAccounts()));
 		if (service == 0) {
 			return "个人中心";
-		}else if(service == 1){
+		} else if (service == 1) {
 			return "修改资料";
-		}else if(service == 2) {
+		} else if (service == 2) {
 			return "修改头像";
-		}else{
+		} else {
 			return "修改密码";
 		}
 	}
+
 	// 回显个人中心数据
 	@RequestMapping(value = "saveData", method = RequestMethod.POST)
 	public String saveData(User user, HttpServletRequest request, HttpServletResponse response) {
@@ -76,12 +82,13 @@ public class LoginController {
 	public void validateEmail(String email, HttpServletRequest request, HttpServletResponse response) {
 		loginService.validateEmail(email, response);
 	}
+
 	// 验证密码是否存在
 	@RequestMapping(value = "verifyPassWord", method = RequestMethod.POST)
 	@ResponseBody
 	public String verifyPassWord(String password, HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) request.getSession().getAttribute("user");
-		if(MD5.getInstance().getMD5(password).equals(user.getPassword())) {
+		if (MD5.getInstance().getMD5(password).equals(user.getPassword())) {
 			return "success";
 		}
 		return null;
@@ -92,25 +99,35 @@ public class LoginController {
 	public void insertUser(String email, String password, HttpServletRequest request, HttpServletResponse response) {
 		loginService.insertUser(email, password, response);
 	}
-	//上传头像
+
+	// 上传头像
 	@RequestMapping("upload")
-	public String upload(MultipartFile image_file, Integer id, HttpServletRequest request,HttpServletResponse response) {
-		
-		loginService.upload(image_file,id);
+	public String upload(MultipartFile image_file, Integer id, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		loginService.upload(image_file, id);
 
 		return "forward:updateDataCenter?service=0";
 	}
-	//用户报名
+
+	// 用户报名
 	@RequestMapping("applyUser")
-	public String applyUser(User user, HttpServletRequest request,HttpServletResponse response) {
-		loginService.applyUser(user);	 
+	public String applyUser(User user, HttpServletRequest request, HttpServletResponse response) {
+		loginService.applyUser(user);
 		return "redirect:index.jsp";
 	}
-	//视频展示页面
+
+	// 视频播放页面
 	@RequestMapping("videoCourse")
-	public String videoCourse(HttpServletRequest request,HttpServletResponse response) {
+	public String videoCourse(Integer speaker_id, Integer video_id, HttpServletRequest request, HttpServletResponse response) {
+
+		List<Subject> list = loginService.selectSubject();
+		request.setAttribute("list", list);
 		
+		List<Speaker> speakers = loginService.videoCourse(speaker_id);
+		request.setAttribute("speakers", speakers);
+		request.setAttribute("video_id", video_id);
 		return "视频播放";
 	}
-	
+
 }
