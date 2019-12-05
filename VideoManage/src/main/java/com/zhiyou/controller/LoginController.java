@@ -20,6 +20,7 @@ import com.zhiyou.model.Video;
 import com.zhiyou.service.LoginService;
 import com.zhiyou.util.MD5;
 
+
 @Controller
 public class LoginController {
 
