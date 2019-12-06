@@ -70,7 +70,13 @@
 	<div>
 		<!--面包屑导航-->
 		<div class="container mian-nav">
-			公开课 /
+	
+			公开课 /<c:forEach items="${speakers}" var="speakers">
+					<c:forEach items="${speakers.videos}" var="video">
+						${video.course_id}
+					</c:forEach>
+				
+			</c:forEach>
 			<%-- <c:forEach items="${speakers}" var="speakers">
 			
 			<c:forEach items="${speakers.videos}" var="videos">
@@ -80,8 +86,7 @@
 			</c:forEach>		
 			
 		</c:forEach>  --%>
-
-			WEB前端 <input type="text" id="accounts" value=${user.getAccounts()}>
+			WEB前端 <input type="hidden" id="accounts" value=${user.getAccounts()}>
 
 		</div>
 		<input id="videoId" value="246" type="hidden">
@@ -95,7 +100,7 @@
 							<div class="container">
 								<div class="v-intro">
 									<div class="left">
-										<video id="videoPlayer" src="${videos.video_url}"
+										<video id="videoPlayer" onplay="on()"src="${videos.video_url}"
 											class="video-js vjs-default-skin" controls="controls"
 											poster="static/z/02.jpg  " data-setup="{}" height="280"
 											width="627"> </video>
@@ -195,28 +200,26 @@
 
 	<!--登录注册弹出框-->
 	<div class="mask hidden" id="login">
-		<div class="mask_content">
-			<div class="mask_content_header">
-				<img src="z/logo.png" alt="" class="ma">
-			</div>
-			<div class="mask_content_body">
-				<form id="loginForm" action="http://localhost:8080/Voids/#">
-					<h3>快速登录</h3>
-					<input id="loginEmail" placeholder="请输入邮箱" name="email"
-						type="email"> <input id="loginPassword"
-						placeholder="请输入密码" name="password" type="password">
-					<div id="forget">
-						<a
-							href="http://localhost:8080/video/front/user/forgetPassword.action">忘记密码？</a>
-					</div>
-					<input onclick="return commitLogin()" value="登　录" type="submit">
-				</form>
-			</div>
-			<div class="mask_content_footer">
-				<span id="login_close">关 闭</span>
-			</div>
+	<div class="mask_content">
+		<div class="mask_content_header">
+			<img src="z/logo.png" alt="" class="ma">
+		</div>
+		<div class="mask_content_body">
+			<form id="loginForm" action="loginUser" method="post">
+				<h3>快速登录</h3>
+				<input id="loginEmail" placeholder="请输入邮箱" name="email" type="email">
+				<input id="loginPassword" placeholder="请输入密码" name="password" type="password">
+				<div id="forget">
+					<a href="http://localhost:8080/video/front/user/forgetPassword.action">忘记密码？</a>
+				</div>
+				<input  onclick="return commitLogin()" value="登　录" type="submit">
+			</form>
+		</div>
+		<div class="mask_content_footer">
+			<span id="login_close">关　闭</span>
 		</div>
 	</div>
+</div>
 	<div class="mask hidden" id="reg">
 		<div class="mask_content">
 			<div class="mask_content_header">
@@ -224,7 +227,7 @@
 			</div>
 			<div class="mask_content_body">
 				<form id="regForm"
-					action="http://localhost:8080/Voids/user/insertUser.action">
+					action="http://localhost:8080/Voids/user/insertUser.action" >
 					<h3>新用户注册</h3>
 					<input id="regEmail" placeholder="请输入邮箱" name="email" type="email"><span
 						id="emailMsg"></span> <input id="regPsw" placeholder="请输入密码"
@@ -256,11 +259,11 @@
 	<script src="js/jquery-1.js"></script>
 	<script src="js/gVerify.js"></script>
 	<script src="js/index.js"></script>
+	<script src="z/index.js"></script>
 	<script src="./视频播放_files/video.js.下载"></script>
-
+	<script src="z/bootstrap/js/jquery.js"></script>
 
 
 </body>
-
 
 </html>

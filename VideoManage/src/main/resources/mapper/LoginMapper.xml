@@ -24,7 +24,7 @@
 			<result column="play_num" property="play_num"/>
   	</collection>
 	</resultMap>
-	
+
 	
 	<resultMap type="speaker" id="speakerMap">
 			<id column="id" property="id" />

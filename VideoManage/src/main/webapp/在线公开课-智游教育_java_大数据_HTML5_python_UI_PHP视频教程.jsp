@@ -33,7 +33,7 @@
 		<span>欢迎来到IT培训的黄埔军校——智游教育！</span>
 
 		<div id="userBlock" style="float: right">
-			<a>退出</a>
+			<a href="exitUser">退出</a>
 		<a id="reg_open">注册</a>
 			
 				<c:choose>

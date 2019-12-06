@@ -59,7 +59,13 @@ public class LoginController {
 	@RequestMapping("updateDataCenter")
 	public String personCenter(int service, HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) request.getSession().getAttribute("user");
-		request.setAttribute("user", loginService.personCenter(user.getAccounts()));
+		if(user!=null) {
+			request.setAttribute("user", loginService.personCenter(user.getAccounts()));
+		}else {
+			return "forward:在线公开课-智游教育_java_大数据_HTML5_python_UI_PHP视频教程.jsp";
+		}
+		
+		
 		if (service == 0) {
 			return "个人中心";
 		} else if (service == 1) {
@@ -130,5 +136,13 @@ public class LoginController {
 		request.setAttribute("video_id", video_id);
 		return "视频播放";
 	}
+	// 用户退出
+		@RequestMapping("exitUser")
+		public String exitUser( HttpServletRequest request, HttpServletResponse response) {
+			request.getSession().removeAttribute("user");
+			return "redirect:index.jsp";
+		}
+	
+	
 
 }
