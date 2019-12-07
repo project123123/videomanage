@@ -52,7 +52,7 @@
 		</bean>
 		
 		
-		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 文件的总大小 -->
 		<property name="maxUploadSize" value="#{1024*1024*1024}"></property>
 		

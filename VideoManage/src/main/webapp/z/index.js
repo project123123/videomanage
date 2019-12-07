@@ -198,7 +198,8 @@ function commitRegForm(){
                 data:$("#regForm").serialize(),
                 type:"POST",
                 success:function(data){
-                   if(data=='success'){
+                   if(data==200){
+                	   alert("注册成功")
                       //注册框消失
                       /*$("#reg").addClass("hidden");
                       
@@ -226,9 +227,7 @@ function commitRegForm(){
 
 verifyCode = new GVerify("v_container");
 
-
 function commitLogin(){
-	
    var email =$("#loginEmail").val();
    var password =$("#loginPassword").val();
    if(null!=email && email!="" && null!=password && password!=""){
@@ -236,11 +235,12 @@ function commitLogin(){
        // alert(params);
         // post要小写
         $.post("loginUser",params,function(data){
-                 if(data=='success'){
-                	// alert(email)
+                 if(data==200){
                      document.location.reload();
-                   }else{
-                	   alert(data);
+                   }else if(data==300){
+                	   alert("用户名或密码错误");
+                   }else if(data==400){
+                	   alert("用户名不存在");
                    }
         });
         
@@ -249,7 +249,14 @@ function commitLogin(){
    
    return false;
 }
-
+function on(){
+	video = document.getElementById("videoPlayer");
+	if($("#accounts").val()==""){
+		video.pause();
+	document.getElementById("login_open").click();
+		//$("#login_open").click();
+	}
+}
 
 function addFavorite2() {
 	var url = window.location;

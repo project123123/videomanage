@@ -16,16 +16,24 @@ import com.zhiyou.model.Course;
 import com.zhiyou.model.Speaker;
 import com.zhiyou.model.Subject;
 import com.zhiyou.model.User;
-import com.zhiyou.model.Video;
 import com.zhiyou.service.LoginService;
 import com.zhiyou.util.MD5;
-
 
 @Controller
 public class LoginController {
 
 	@Autowired
 	LoginService loginService;
+
+	@RequestMapping("loginUser")
+	@ResponseBody
+	public void loginUser(String email, String password, HttpServletRequest request, HttpServletResponse response) {
+
+		User user = loginService.loginUser(email, password, response);
+		if (user != null) {
+			request.getSession().setAttribute("user", user);
+		}
+	}
 
 	@RequestMapping("/show")
 	public String show(Integer service, HttpServletRequest request, HttpServletResponse response) {
@@ -45,27 +53,16 @@ public class LoginController {
 
 	}
 
-	@RequestMapping("loginUser")
-	@ResponseBody
-	public void loginUser(String email, String password, HttpServletRequest request, HttpServletResponse response) {
-
-		User user = loginService.loginUser(email, password, response);
-		if (user != null) {
-			request.getSession().setAttribute("user", user);
-		}
-	}
-
 	// 回显个人中心和修改密码
 	@RequestMapping("updateDataCenter")
 	public String personCenter(int service, HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) request.getSession().getAttribute("user");
-		if(user!=null) {
+		if (user != null) {
 			request.setAttribute("user", loginService.personCenter(user.getAccounts()));
-		}else {
-			return "forward:在线公开课-智游教育_java_大数据_HTML5_python_UI_PHP视频教程.jsp";
+		} else {
+			return "redirect:index.jsp";
 		}
-		
-		
+
 		if (service == 0) {
 			return "个人中心";
 		} else if (service == 1) {
@@ -77,7 +74,7 @@ public class LoginController {
 		}
 	}
 
-	// 回显个人中心数据
+	// 保存个人中心数据
 	@RequestMapping(value = "saveData", method = RequestMethod.POST)
 	public String saveData(User user, HttpServletRequest request, HttpServletResponse response) {
 		loginService.saveData(user);
@@ -103,8 +100,13 @@ public class LoginController {
 
 	// 注册账号密码
 	@RequestMapping(value = "insertUser", method = RequestMethod.POST)
-	public void insertUser(String email, String password, HttpServletRequest request, HttpServletResponse response) {
-		loginService.insertUser(email, password, response);
+	@ResponseBody
+	public Integer insertUser(String email, String password, HttpServletRequest request, HttpServletResponse response) {
+		int success = loginService.insertUser(email, password);
+		if(success==1) {
+			return 200;
+		}
+		return null;
 	}
 
 	// 上传头像
@@ -126,23 +128,25 @@ public class LoginController {
 
 	// 视频播放页面
 	@RequestMapping("videoCourse")
-	public String videoCourse(Integer speaker_id, Integer video_id, HttpServletRequest request, HttpServletResponse response) {
+	public String videoCourse(Integer speaker_id, Integer video_id, HttpServletRequest request,
+			HttpServletResponse response) {
 
-		List<Subject> list = loginService.selectSubject();
-		request.setAttribute("list", list);
-		
+		/*
+		 * List<Subject> list = loginService.selectSubject();
+		 * request.setAttribute("list", list);
+		 */
+
 		List<Speaker> speakers = loginService.videoCourse(speaker_id);
 		request.setAttribute("speakers", speakers);
 		request.setAttribute("video_id", video_id);
 		return "视频播放";
 	}
+
 	// 用户退出
-		@RequestMapping("exitUser")
-		public String exitUser( HttpServletRequest request, HttpServletResponse response) {
-			request.getSession().removeAttribute("user");
-			return "redirect:index.jsp";
-		}
-	
-	
+	@RequestMapping("exitUser")
+	public String exitUser(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().removeAttribute("user");
+		return "redirect:index.jsp";
+	}
 
 }

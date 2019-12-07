@@ -16,10 +16,10 @@ public class FTPUtil {
 		
 		FTPClient ftpClient = new FTPClient();
 		
-		String url = "ftp://192.168.124.60/";
+		String url = "ftp://192.168.124.81/";
 		try {
 			//连接服务器
-			ftpClient.connect("192.168.124.60");
+			ftpClient.connect("192.168.124.81");
 			//根据账号密码登入服务器
 			ftpClient.login("admin", "123");
 			//更改客户端模式

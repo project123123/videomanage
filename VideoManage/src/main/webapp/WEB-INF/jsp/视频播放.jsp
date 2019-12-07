@@ -44,7 +44,7 @@
 
 
 		<div id="userBlock" style="float: right">
-			<a>退出</a> <a id="reg_open">注册</a>
+			<a href="exitUser">退出</a> <a id="reg_open">注册</a>
 			<c:choose>
 				<c:when test="${user==null}">
 					<a id="login_open">登入</a>
@@ -71,12 +71,7 @@
 		<!--面包屑导航-->
 		<div class="container mian-nav">
 	
-			公开课 /<c:forEach items="${speakers}" var="speakers">
-					<c:forEach items="${speakers.videos}" var="video">
-						${video.course_id}
-					</c:forEach>
-				
-			</c:forEach>
+			公开课 /
 			<%-- <c:forEach items="${speakers}" var="speakers">
 			
 			<c:forEach items="${speakers.videos}" var="videos">
@@ -87,7 +82,6 @@
 			
 		</c:forEach>  --%>
 			WEB前端 <input type="hidden" id="accounts" value=${user.getAccounts()}>
-
 		</div>
 		<input id="videoId" value="246" type="hidden">
 
@@ -100,7 +94,7 @@
 							<div class="container">
 								<div class="v-intro">
 									<div class="left">
-										<video id="videoPlayer" onplay="on()"src="${videos.video_url}"
+										<video id="videoPlayer" onplay="on()" src="${videos.video_url}"
 											class="video-js vjs-default-skin" controls="controls"
 											poster="static/z/02.jpg  " data-setup="{}" height="280"
 											width="627"> </video>
@@ -265,5 +259,10 @@
 
 
 </body>
+
+
+<script type="text/javascript">
+	
+</script>
 
 </html>

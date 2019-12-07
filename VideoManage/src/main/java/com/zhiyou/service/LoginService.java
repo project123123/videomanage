@@ -10,7 +10,6 @@ import com.zhiyou.model.Course;
 import com.zhiyou.model.Speaker;
 import com.zhiyou.model.Subject;
 import com.zhiyou.model.User;
-import com.zhiyou.model.Video;
 
 public interface LoginService {
 
@@ -26,7 +25,7 @@ public interface LoginService {
 	void validateEmail(String email, HttpServletResponse response);
 	//注册账号密码
 	
-	  void insertUser(String email, String password, HttpServletResponse response);
+	int insertUser(String email, String password);
 
 	User personCenter(String accounts);
 

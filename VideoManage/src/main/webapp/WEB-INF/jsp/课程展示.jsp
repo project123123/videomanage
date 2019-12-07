@@ -32,7 +32,7 @@
 	<div class="container">
 		<span>欢迎来到IT培训的黄埔军校——智游教育！</span>
 		<div id="userBlock" style="float: right">
-			<a>退出</a>
+			<a href="exitUser">退出</a>
 				<a id="reg_open">注册</a>
 			<c:choose>
 				<c:when test="${user==null}">
@@ -92,7 +92,7 @@
 									<li class="section-main" onclick="getVideo(217)">
 									
 										<div class="thum"
-											style="background-image: url('${video.image_url}')"></div>
+											style="background-image: url('${video.image_url}')" onclick="location.href='videoCourse?speaker_id=${video.speaker_id}&video_id=${video.video_id}'"></div>
 										<p><a href="videoCourse?speaker_id=${video.speaker_id}&video_id=${video.video_id}">${video.title}</a></p>
 										<div class="classify-v-info">
 											<span class="count" title="观看次数"><img

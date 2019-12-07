@@ -6,7 +6,6 @@ import com.zhiyou.model.Course;
 import com.zhiyou.model.Speaker;
 import com.zhiyou.model.Subject;
 import com.zhiyou.model.User;
-import com.zhiyou.model.Video;
 
 public interface LoginDao {
 

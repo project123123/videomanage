@@ -39,14 +39,14 @@
 	<menu>
 		<div class="container clearfix">
 			<ul class="clearfix f_left">
-				<li><a href="updateDataCenter?service=0">首页</a></li>
+				<li><a href="show">首页</a></li>
 
-				<li class="menu_active"><a>个人中心</a></li>
+				<li class="menu_active"><a href="updateDataCenter?service=0">个人中心</a></li>
 			</ul>
 
 			<div id="user_bar">
 				<a> <img id="avatar" src="z/avatar_lg.png" alt="" width="30px;">
-				</a> <a href="show" id="lay_out">退出</a>
+				</a> <a href="exitUser" id="lay_out">退出</a>
 			</div>
 		</div>
 	</menu>

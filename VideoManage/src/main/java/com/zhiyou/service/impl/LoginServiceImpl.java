@@ -42,14 +42,14 @@ public class LoginServiceImpl implements LoginService {
 			if (email.equals(user.getAccounts())
 					&& MD5.getInstance().getMD5(password).equals(user.getPassword())) {
 				try {
-					response.getWriter().write("success");
+					response.getWriter().println(200);
 					return user;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else {
 				try {
-					response.getWriter().write("用户名或密码错误");
+					response.getWriter().println(300);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
 		} else {
 
 			try {
-				response.getWriter().write("用户名不存在");
+				response.getWriter().println(400);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -72,9 +72,12 @@ public class LoginServiceImpl implements LoginService {
 
 	// 修改个人资料
 	public void saveData(User user) {
-		loginDao.saveData(user);
+		if(user.getPassword()!=null) {
+			 user.setPassword( MD5.getInstance().getMD5(user.getPassword()));
+		}
+		 loginDao.saveData(user);
 	}
-
+	//验证邮箱用户名
 	public void validateEmail(String email, HttpServletResponse response) {
 
 		User user = loginDao.loginUser(email);
@@ -87,15 +90,8 @@ public class LoginServiceImpl implements LoginService {
 		}
 	}
 
-	public void insertUser(String email, String password, HttpServletResponse response) {
-		int number = loginDao.insertUser(email, MD5.getInstance().getMD5(password));
-		if (number == 1) {
-			try {
-				response.getWriter().write("success");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	public int insertUser(String email, String password) {
+		return loginDao.insertUser(email, MD5.getInstance().getMD5(password));
 	}
 
 	public User personCenter(String accounts) {
